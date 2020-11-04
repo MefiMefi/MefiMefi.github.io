@@ -1,8 +1,10 @@
-name: "Ryan meets internet!"
+name: "Ryan Wei"
 output_dir: "."
 navbar:
   title: "Home"
   right:
+    - text: "Dashboard"
+      href: Dashboard.html    
     - text: "About"
       href: about.html
     - icon: fa-envelope fa-lg
@@ -11,4 +13,8 @@ navbar:
       href: http://github.com/MefiMefi/
 output:
   html_document:
-    theme: cerulean
+    toc : TRUE
+    toc_float: TRUE
+    hide_code : TRUE
+    theme: simplex
+    

@@ -1,6 +1,5 @@
 ---
 title: "About Ryan"
-output: html_document
 ---
 
 <img src = "./pic/resume.jpg" style = "width:10%" align="right">

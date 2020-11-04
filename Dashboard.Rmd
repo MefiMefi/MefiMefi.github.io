@@ -1,5 +1,12 @@
 ---
-title: "Dashboard"
+title: "Dashboard of plotly "
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+    code_folding: hide
+    theme: simplex
 ---
 
 ```{r setup, include=FALSE}
@@ -7,13 +14,8 @@ library(tidyverse)
 library(plotly)
 library(p8105.datasets)
 library(flexdashboard)
-data("instacart")
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
 library(rnoaa)
-library(ggridges)
-library(patchwork) # use to multi plot, plt1 + (pl2 + plt3) / plt4
-library(p8105.datasets)
+knitr::opts_chunk$set(echo = F)
 knitr::opts_chunk$set(
   fig.height = 6,
   fig.width = 8,
@@ -30,50 +32,126 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d 
 ```
 
+Back to [HOME](https://rw2844.github.io)
+
 ```{r read}
-instacart_df = 
-  instacart %>% 
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728", "USC00519397", "USS0023B17S"),
+    var = c("PRCP", "SNOW", "SNWD", "TMAX", "TMIN"),
+    date_min = "2017-01-01",
+    date_max = "2019-12-31") %>%
   mutate(
-    reordered = factor(reordered, labels = c("No","Yes")),
-    aisle = as.factor(aisle),
-    order_dow = 
-      factor(
-      order_dow, 
-      labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-      ),
-    department = as.factor(department)
-    )
+    name = recode(
+      id, 
+      USW00094728 = "CentralPark_NY", 
+      USC00519397 = "Waikiki_HA",
+      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10,
+    tmax = tmax / 10,
+    month = lubridate::floor_date(date, unit = "month")) %>%
+    mutate(
+      snow = case_when(
+      snow <0 ~0,
+      snow >= 0 ~snow)) %>% 
+  select(name, id, everything())
+
+
 ```
 
 
 ## Plot 1
 
-```{r plot 1}
+```{r plot_1}
 plot_1 =
-instacart_df %>% 
-  group_by(aisle) %>%
-  filter(n()> 10000) %>% 
-  mutate(
-    counts = n()
-  ) %>% 
-  ungroup() %>% 
-  mutate(
-    aisle = fct_reorder(aisle,counts)
-  ) %>%
-  ggplot(aes(y = aisle, fill = aisle)) + 
-  geom_bar() +
-  scale_x_continuous(trans = "sqrt")+
-  theme(legend.position = "none") +
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) + 
+  geom_point(alpha = .2) + 
+  geom_smooth(se = FALSE) + 
+  facet_grid(. ~ name) +
   labs(
-    title = "Aisles with more than 10000 items ordered",
-    x = "Counts(N)",
-    y = "Aisle"
-    )
+    title = "Max and Min Temperature associations (°C)",
+    x = "T-Min",
+    y = "T-Max",
+    color = "Name",
+    caption = "data from NOAA National Climatic Data Center"
+    ) 
+
 
 ggplotly(plot_1)
 ```
 
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+## Plot 2
+```{r plot_2}
+plot_2 =
+weather_df %>%
+  select(name, tmax, tmin) %>% 
+  pivot_longer(
+    tmax:tmin,
+    names_to = "observation", 
+    values_to = "temp") %>% 
+  ggplot(aes(x = temp, fill = observation)) +
+  geom_density(alpha = .5) + 
+  facet_grid(~name) +
+  labs(
+    title = "Max and Min Temperature Distributions)",
+    x = "Temperature",
+    y = "Frequency",
+    caption = "data from NOAA National Climatic Data Center"
+    ) 
+
+ggplotly(plot_2)
+```
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+## Plot 3
+
+```{r plot_3}
+plot_3 = 
+weather_df %>%
+  group_by(name, month) %>%
+  summarize(mean_tmax = mean(tmax)) %>%
+  ggplot(aes(x = month, y = mean_tmax, color = name)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(
+    title = "Trend of Mean of Max Temperature",
+    x = "Year",
+    y = "Mean T-Max(°C)",
+    color = "Name"
+    ) +
+  scale_x_date(
+    date_breaks = "2 month"
+  ) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 
 
+ggplotly(plot_3) 
 
 
+```
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+## Plot 4
+```{r plot_4}
+plot_4 =
+  ggplot(weather_df, aes(x = name, y = tmax, fill = name)) + geom_violin(alpha = 0.5)+
+  labs(
+    title = "Distribution of Max Temperature",
+    x = "Location",
+    y = "T-Max(°C)",
+    color = "Name"
+    )
+
+ggplotly(plot_4)
+```
+
+Column {data-width=400}
+-----------------------------------------------------------------------

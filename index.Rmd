@@ -1,12 +1,8 @@
 ---
 title: "Ryan's Awesome Website"
-output: 
-  html_document:
-    toc: true
-    toc_float: true
-    theme: cerulean
 ---
 
+  
 ### This is Ryan
 
 <p class="aligncenter">
@@ -18,8 +14,13 @@ output:
 }
 </style>
 <center><b>Ryans in the LAB</b></center>
+\
+\
+\
+\
 
 # Abilities and Interests
+
 \ I am interested in Health Science and Statistics.
 
 \ Majored in laboratory medicine in my undergraduate school, and now in the Mailman School of Public Health, MS/TM track.
@@ -28,11 +29,49 @@ output:
 
 _Here is my github page _
 _[repo](https://github.com/MefiMefi)_
+\
+\
+\
+\
 
 # Background
 \ I came from China and for some reason I am still in China now.
 
 \ I like music (especially classical music and rap), video games (now playing FFXIV) and I can draw something.
+\
+\
+\
+\
 
-\ By the way, I just went to Disney last day :
+# Something Fun
 
+\ Here is a **Bubbling** Buzz Lightyear!
+
+<p class="aligncenter">
+  <img src="./pic/buzz.gif" alt="buzz" style = "width:75%" />
+  </p>
+  <style>
+.aligncenter {
+    text-align: center;
+}
+</style>
+<center><b>Bubbling Buzz</b></center>
+\ 
+\
+\
+\
+\ And is that a collaboration with Jeff and Ted?
+
+<p class="aligncenter">
+  <img src="./pic/little_bob.jpg" alt="bob" style = "width:75%" />
+  </p>
+  <style>
+.aligncenter {
+    text-align: center;
+}
+</style>
+<center><b>"Jeff and Ted"</b></center>
+\
+\
+\
+\
