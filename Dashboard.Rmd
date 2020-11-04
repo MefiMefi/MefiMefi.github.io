@@ -1,5 +1,5 @@
 ---
-title: "Dashboard of plotly "
+title: "Dashboard "
 output: 
   flexdashboard::flex_dashboard:
     orientation: columns
@@ -55,7 +55,6 @@ weather_df =
       snow <0 ~0,
       snow >= 0 ~snow)) %>% 
   select(name, id, everything())
-
 
 ```
 
@@ -155,3 +154,5 @@ ggplotly(plot_4)
 
 Column {data-width=400}
 -----------------------------------------------------------------------
+
+
