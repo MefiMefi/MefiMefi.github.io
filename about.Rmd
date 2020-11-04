@@ -11,9 +11,8 @@ output: html_document
 - [E-Mail](mailto:<rw2844@cumc.columbia.edu>)
 
 
-# RESUME
 
-## EDUCATION
+# Education
 
 - Master of Science Candidate, Columbia University, U.S. [present]{style="float:right"}
 
@@ -21,12 +20,12 @@ output: html_document
 
 - Bachelor of Science, Economics, Peking University, China. [2020]{style="float:right"}
 
-## RESEARCH EXPEIRENCE
+# Research experience
 
 - Project: Lung Cancer Predictive Model Based on Multiple Machine Learning Method [2020]{style="float:right"}
 
 
-## PROFESSIONAL EXPERIENCE
+# Work experience
 
 - Peking University First Hospital
 

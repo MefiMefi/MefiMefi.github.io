@@ -11,7 +11,7 @@
 
 
 
-<title>Ryan’s Awesome Website</title>
+<title>Dashboard</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,9 +19,6 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -262,69 +259,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
-
 
 </head>
 
@@ -332,16 +266,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -385,43 +309,68 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Ryan’s Awesome Website</h1>
+<h1 class="title toc-ignore">Dashboard</h1>
 
 </div>
 
 
-<div id="this-is-ryan" class="section level3">
-<h3>This is Ryan</h3>
-<p class="aligncenter">
-<img src="pic/Ryan.jpg" alt="Ryan" style = "width:75%" />
-</p>
-<style>
-.aligncenter {
-    text-align: center;
-}
-</style>
-<center>
-<b>Ryans in the LAB</b>
-</center>
+<pre class="r"><code>instacart_df = 
+  instacart %&gt;% 
+  mutate(
+    reordered = factor(reordered, labels = c(&quot;No&quot;,&quot;Yes&quot;)),
+    aisle = as.factor(aisle),
+    order_dow = 
+      factor(
+      order_dow, 
+      labels = c(&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;, &quot;Wednesday&quot;, &quot;Thursday&quot;, &quot;Friday&quot;, &quot;Saturday&quot;)
+      ),
+    department = as.factor(department)
+    )</code></pre>
+<div id="plot-1" class="section level2">
+<h2>Plot 1</h2>
+<pre class="r"><code>instacart_df %&gt;% 
+  group_by(aisle) %&gt;%
+  filter(n()&gt; 10000) %&gt;% 
+  mutate(
+    counts = n()
+  ) %&gt;% 
+  ungroup() %&gt;% 
+  mutate(
+    aisle = fct_reorder(aisle,counts)
+  )%&gt;%
+  ggplot(aes(y = aisle, fill = aisle)) + 
+  geom_bar() +
+  scale_x_continuous(trans = &quot;sqrt&quot;)+
+  theme(legend.position = &quot;none&quot;) +
+  labs(
+    title = &quot;Aisles with more than 10000 items ordered&quot;,
+    x = &quot;Counts(N)&quot;,
+    y = &quot;Aisle&quot;
+    )</code></pre>
+<p><img src="Dashboard_files/figure-html/plot%201-1.png" width="768" /></p>
 </div>
-<div id="abilities-and-interests" class="section level1">
-<h1>Abilities and Interests</h1>
-<p> I am interested in Health Science and Statistics.</p>
-<p> Majored in laboratory medicine in my undergraduate school, and now in the Mailman School of Public Health, MS/TM track.</p>
-<p> Have some work experience with analyzing real life medical care data, using Python and R.</p>
-<p><em>Here is my github page </em> <em><a href="https://github.com/MefiMefi">repo</a></em></p>
+<div id="r-markdown" class="section level2">
+<h2>R Markdown</h2>
+<p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<pre class="r"><code>summary(cars)</code></pre>
+<pre><code>##      speed           dist    
+##  Min.   : 4.0   Min.   :  2  
+##  1st Qu.:12.0   1st Qu.: 26  
+##  Median :15.0   Median : 36  
+##  Mean   :15.4   Mean   : 43  
+##  3rd Qu.:19.0   3rd Qu.: 56  
+##  Max.   :25.0   Max.   :120</code></pre>
 </div>
-<div id="background" class="section level1">
-<h1>Background</h1>
-<p> I came from China and for some reason I am still in China now.</p>
-<p> I like music (especially classical music and rap), video games (now playing FFXIV) and I can draw something.</p>
-<p> By the way, I just went to Disney last day :</p>
+<div id="including-plots" class="section level2">
+<h2>Including Plots</h2>
+<p>You can also embed plots, for example:</p>
+<p><img src="Dashboard_files/figure-html/pressure-1.png" width="768" /></p>
+<p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -454,32 +403,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
