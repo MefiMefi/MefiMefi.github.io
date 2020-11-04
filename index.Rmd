@@ -8,6 +8,7 @@ output:
 ---
 
 ### This is Ryan
+
 <p class="aligncenter">
   <img src="./pic/Ryan.jpg" alt="Ryan" style = "width:75%" />
   </p>
@@ -34,3 +35,4 @@ _[repo](https://github.com/MefiMefi)_
 \ I like music (especially classical music and rap), video games (now playing FFXIV) and I can draw something.
 
 \ By the way, I just went to Disney last day :
+
