@@ -1,0 +1,37 @@
+---
+title: "About Ryan"
+output: html_document
+---
+
+<img src = "./pic/resume.jpg" style = "width:10%" align="right">
+
+# Contact Information 
+
+- [Github](https://github.com/MefiMefi)
+- [E-Mail](mailto:<rw2844@cumc.columbia.edu>)
+
+
+# RESUME
+
+## EDUCATION
+
+- Master of Science Candidate, Columbia University, U.S. [present]{style="float:right"}
+
+- Bachelor of Science, Laboratory Science, Peking University, China. [2020]{style="float:right"}
+
+- Bachelor of Science, Economics, Peking University, China. [2020]{style="float:right"}
+
+## RESEARCH EXPEIRENCE
+
+- Project: Lung Cancer Predictive Model Based on Multiple Machine Learning Method [2020]{style="float:right"}
+
+
+## PROFESSIONAL EXPERIENCE
+
+- Peking University First Hospital
+
+  Resident Laboratory Technician [2019]{style="float:right"}
+
+- PKU Healthcare IT Co., Ltd.  
+
+  Analysist Intern[2019]{style="float:right"}
