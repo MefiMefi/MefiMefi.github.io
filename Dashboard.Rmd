@@ -1,0 +1,79 @@
+---
+title: "Dashboard"
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(p8105.datasets)
+library(flexdashboard)
+data("instacart")
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rnoaa)
+library(ggridges)
+library(patchwork) # use to multi plot, plt1 + (pl2 + plt3) / plt4
+library(p8105.datasets)
+knitr::opts_chunk$set(
+  fig.height = 6,
+  fig.width = 8,
+  message =F,
+  warning = F
+  )
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis",
+  digits = 3
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d 
+```
+
+```{r read}
+instacart_df = 
+  instacart %>% 
+  mutate(
+    reordered = factor(reordered, labels = c("No","Yes")),
+    aisle = as.factor(aisle),
+    order_dow = 
+      factor(
+      order_dow, 
+      labels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
+      ),
+    department = as.factor(department)
+    )
+```
+
+
+## Plot 1
+
+```{r plot 1}
+plot_1 =
+instacart_df %>% 
+  group_by(aisle) %>%
+  filter(n()> 10000) %>% 
+  mutate(
+    counts = n()
+  ) %>% 
+  ungroup() %>% 
+  mutate(
+    aisle = fct_reorder(aisle,counts)
+  ) %>%
+  ggplot(aes(y = aisle, fill = aisle)) + 
+  geom_bar() +
+  scale_x_continuous(trans = "sqrt")+
+  theme(legend.position = "none") +
+  labs(
+    title = "Aisles with more than 10000 items ordered",
+    x = "Counts(N)",
+    y = "Aisle"
+    )
+
+ggplotly(plot_1)
+```
+
+
+
+
+
